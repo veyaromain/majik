@@ -30,21 +30,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [])
 
   useEffect(() => {
-    if (user) {
-      const checkProfile = async () => {
-        try {
-          const snap = await getDoc(doc(db, 'users', user.uid))
-          setProfileNeedsCompletion(!snap.exists())
-        } catch (err) {
-          console.error('Erreur lors de la vérification du profil:', err)
-          // Si on ne peut pas vérifier, mieux vaut demander les infos
-          setProfileNeedsCompletion(true)
-        }
-      }
-      checkProfile()
-    } else {
+    if (!user) {
       setProfileNeedsCompletion(false)
+      return
     }
+
+    const checkProfile = async () => {
+      try {
+        const snap = await getDoc(doc(db, 'users', user.uid))
+        setProfileNeedsCompletion(!snap.exists())
+      } catch (err) {
+        console.error('Erreur lors de la vérification du profil:', err)
+        // Ne pas bloquer l'utilisateur si la lecture échoue
+        setProfileNeedsCompletion(false)
+      }
+    }
+
+    checkProfile()
   }, [user])
 
   const signIn = async () => {
@@ -76,8 +78,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const saveProfile = async (data: { firstName: string; lastName: string; age: number }) => {
     if (!user) return
-    await setDoc(doc(db, 'users', user.uid), data)
-    setProfileNeedsCompletion(false)
+    try {
+      await setDoc(doc(db, 'users', user.uid), data)
+      setProfileNeedsCompletion(false)
+    } catch (err) {
+      console.error('Erreur lors de l\'enregistrement du profil:', err)
+      alert("Impossible d'enregistrer le profil.")
+    }
   }
 
   return (

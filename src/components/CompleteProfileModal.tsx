@@ -15,9 +15,13 @@ const CompleteProfileModal: React.FC<Props> = ({ onSave }) => {
   const [lastName, setLastName] = useState('')
   const [age, setAge] = useState('')
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
     const ageNum = parseInt(age, 10)
-    if (!firstName || !lastName || isNaN(ageNum)) return
+    if (!firstName || !lastName || isNaN(ageNum)) {
+      alert('Tous les champs sont obligatoires')
+      return
+    }
     onSave({ firstName, lastName, age: ageNum })
   }
 
@@ -34,7 +38,7 @@ const CompleteProfileModal: React.FC<Props> = ({ onSave }) => {
     >
       <div className="bg-white rounded-3xl max-w-md w-full p-8">
         <h2 className="text-xl font-bold text-gray-800 mb-4">Complétez votre profil</h2>
-        <div className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <input
             className="w-full border border-gray-200 rounded-lg p-2"
             placeholder="Prénom"
@@ -55,12 +59,12 @@ const CompleteProfileModal: React.FC<Props> = ({ onSave }) => {
             onChange={(e) => setAge(e.target.value)}
           />
           <button
-            onClick={handleSubmit}
+            type="submit"
             className="w-full magic-button bg-tomato-500 hover:bg-tomato-600 text-white py-2 px-4 rounded-xl"
           >
             Enregistrer
           </button>
-        </div>
+        </form>
       </div>
     </div>
   )
