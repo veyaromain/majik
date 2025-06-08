@@ -1,21 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAuth } from './AuthContext'
+import LoginModal from './components/LoginModal'
 
 const RequireAuth: React.FC<{ children: JSX.Element }> = ({ children }) => {
-  const { user, loading, signIn } = useAuth()
+  const { user, loading } = useAuth()
+  const [showModal, setShowModal] = useState(false)
+
+  useEffect(() => {
+    if (!loading && !user) {
+      setShowModal(true)
+    } else {
+      setShowModal(false)
+    }
+  }, [loading, user])
 
   if (loading) {
     return <div className="p-8 text-center">Chargement...</div>
   }
 
   if (!user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <button onClick={signIn} className="magic-button bg-tomato-500 text-white px-4 py-2 rounded-xl">
-          Se connecter avec Google
-        </button>
-      </div>
-    )
+    return showModal ? <LoginModal onClose={() => setShowModal(false)} /> : null
   }
 
   return children

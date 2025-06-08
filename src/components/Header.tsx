@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, Sparkles } from 'lucide-react'
+import { useAuth } from '../AuthContext'
+import LoginModal from './LoginModal'
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [showLogin, setShowLogin] = useState(false)
+  const { user, signOutUser } = useAuth()
   const location = useLocation()
 
   const navigation = [
@@ -32,7 +36,7 @@ const Header: React.FC = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden md:flex space-x-8 items-center">
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -46,6 +50,21 @@ const Header: React.FC = () => {
                 {item.name}
               </Link>
             ))}
+            {user ? (
+              <button
+                onClick={signOutUser}
+                className="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-tomato-600"
+              >
+                Déconnexion
+              </button>
+            ) : (
+              <button
+                onClick={() => setShowLogin(true)}
+                className="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-tomato-600"
+              >
+                Connexion
+              </button>
+            )}
           </nav>
 
           {/* Mobile menu button */}
@@ -77,9 +96,31 @@ const Header: React.FC = () => {
                   {item.name}
                 </Link>
               ))}
+              {user ? (
+                <button
+                  onClick={() => {
+                    signOutUser()
+                    setIsMenuOpen(false)
+                  }}
+                  className="text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-tomato-600"
+                >
+                  Déconnexion
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    setIsMenuOpen(false)
+                    setShowLogin(true)
+                  }}
+                  className="text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-tomato-600"
+                >
+                  Connexion
+                </button>
+              )}
             </nav>
           </div>
         )}
+        {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
       </div>
     </header>
   )
