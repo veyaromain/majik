@@ -13,20 +13,16 @@ const MountainSeparator: React.FC<MountainSeparatorProps> = ({
   toColor = 'rgba(255, 255, 255, 0.5)',
   direction = 'normal'
 }) => {
+  const uniqueId = Math.random().toString(36).substr(2, 9)
+  
   return (
     <div className={`w-full ${className}`} style={{ transform: direction === 'reverse' ? 'scaleY(-1)' : 'none' }}>
       <svg
         viewBox="0 0 1200 80"
         className="w-full h-[80px]"
         preserveAspectRatio="none"
+        style={{ backgroundColor: fromColor }}
       >
-        <defs>
-          <linearGradient id={`mountainGradient-${Math.random()}`} x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor={fromColor} />
-            <stop offset="100%" stopColor={toColor} />
-          </linearGradient>
-        </defs>
-        
         {/* Silhouette principale des Alpes avec de nombreux pics pointus */}
         <path
           d="M0,80 L0,65 
@@ -41,7 +37,7 @@ const MountainSeparator: React.FC<MountainSeparatorProps> = ({
              L60,55 L120,40 L180,50 L240,35 L300,45 L360,30 L420,40 L480,25 L540,35 L600,20 L660,30 L720,15 L780,25 L840,10 L900,20 L960,5 L1020,15 L1080,25 L1140,35 L1200,45 
              L1200,80 Z"
           fill={toColor}
-          opacity="0.6"
+          opacity="0.8"
         />
         
         {/* Troisième couche pour encore plus de réalisme */}
@@ -50,7 +46,7 @@ const MountainSeparator: React.FC<MountainSeparatorProps> = ({
              L100,65 L200,55 L300,60 L400,50 L500,55 L600,45 L700,50 L800,40 L900,45 L1000,35 L1100,40 L1200,50 
              L1200,80 Z"
           fill={toColor}
-          opacity="0.3"
+          opacity="0.6"
         />
       </svg>
     </div>
