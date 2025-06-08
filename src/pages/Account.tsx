@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import { Calendar, CreditCard, Settings, LogOut, Crown, Sparkles } from 'lucide-react'
+import { Calendar, CreditCard, Settings, LogOut, Crown, Sparkles, User, Lock } from 'lucide-react'
 import { useAuth } from '../AuthContext'
+import LoginModal from '../components/LoginModal'
 
 const Account: React.FC = () => {
   const { user, signOutUser } = useAuth()
+  const [showLoginModal, setShowLoginModal] = useState(false)
   const [userInfo] = useState({
     subscription: 'Gourmand',
     subscriptionEnd: '15 juin 2024',
@@ -51,6 +53,85 @@ const Account: React.FC = () => {
     }
   }
 
+  // Si l'utilisateur n'est pas connecté, afficher le message de connexion requis
+  if (!user) {
+    return (
+      <div className="min-h-screen py-12" style={{backgroundColor: '#EDE5CC'}}>
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="glass-card p-8 md:p-12 rounded-3xl text-center">
+            {/* Icône de verrouillage */}
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-tomato-100 rounded-full mb-6">
+              <Lock className="h-10 w-10 text-tomato-500" />
+            </div>
+
+            {/* Titre principal */}
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+              Connexion requise
+            </h1>
+
+            {/* Description */}
+            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+              Vous devez être connecté pour accéder à votre espace personnel et gérer votre compte Majik.
+            </p>
+
+            {/* Avantages de la connexion */}
+            <div className="bg-white/50 rounded-2xl p-6 mb-8 text-left">
+              <h3 className="font-semibold text-gray-800 mb-4 text-center">
+                Avec votre compte Majik, vous pouvez :
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-tomato-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Sparkles className="h-4 w-4 text-tomato-600" />
+                  </div>
+                  <span className="text-gray-700">Voir vos économies totales</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-tomato-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Calendar className="h-4 w-4 text-tomato-600" />
+                  </div>
+                  <span className="text-gray-700">Historique des visites</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-tomato-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Crown className="h-4 w-4 text-tomato-600" />
+                  </div>
+                  <span className="text-gray-700">Gérer votre abonnement</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-tomato-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Settings className="h-4 w-4 text-tomato-600" />
+                  </div>
+                  <span className="text-gray-700">Paramètres personnalisés</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Bouton de connexion */}
+            <button
+              onClick={() => setShowLoginModal(true)}
+              className="magic-button bg-tomato-500 hover:bg-tomato-600 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 inline-flex items-center space-x-2 glow-tomato"
+            >
+              <User className="h-5 w-5" />
+              <span>Se connecter</span>
+            </button>
+
+            {/* Texte d'aide */}
+            <p className="text-sm text-gray-500 mt-6">
+              La connexion est rapide et sécurisée avec votre compte Google
+            </p>
+          </div>
+        </div>
+
+        {/* Modal de connexion */}
+        {showLoginModal && (
+          <LoginModal onClose={() => setShowLoginModal(false)} />
+        )}
+      </div>
+    )
+  }
+
+  // Si l'utilisateur est connecté, afficher le contenu normal du compte
   return (
     <div className="min-h-screen py-12" style={{backgroundColor: '#EDE5CC'}}>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
