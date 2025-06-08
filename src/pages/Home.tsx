@@ -79,12 +79,12 @@ const Home: React.FC = () => {
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 text-shadow-lg">
             Et si aller au resto
-            <span className="block text-tomato-400 drop-shadow-lg">
+            <span className="block text-tomato-500 drop-shadow-lg">
               devenait magique ?
             </span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed drop-shadow-md">
+          <p className="text-xl md:text-2xl text-gray-100 mb-12 max-w-3xl mx-auto leading-relaxed drop-shadow-md">
             Découvrez des réductions exclusives dans les meilleurs restaurants de Suisse romande. 
             Une expérience culinaire unique vous attend.
           </p>
@@ -92,7 +92,7 @@ const Home: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <Link
               to="/restaurants"
-              className="magic-button bg-tomato-500 hover:bg-tomato-600 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center space-x-2 glow-tomato backdrop-blur-sm"
+              className="magic-button bg-tomato-500 hover:bg-tomato-600 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center space-x-2 glow-tomato"
             >
               <span>Parcourir les restaurants</span>
               <ArrowRight className="h-5 w-5" />
@@ -100,7 +100,7 @@ const Home: React.FC = () => {
 
             <Link
               to="/abonnements"
-              className="magic-button bg-white/20 backdrop-blur-md border border-white/30 px-8 py-4 rounded-2xl font-semibold text-lg text-white hover:text-tomato-200 hover:bg-white/30 transition-all duration-300 flex items-center space-x-2 shadow-xl"
+              className="magic-button bg-white/15 backdrop-blur-md border border-white/40 px-8 py-4 rounded-2xl font-semibold text-lg text-white hover:text-white hover:bg-white/25 transition-all duration-300 flex items-center space-x-2 shadow-xl"
             >
               <span>Découvrir les abonnements</span>
               <Sparkles className="h-5 w-5" />
@@ -280,11 +280,11 @@ const Home: React.FC = () => {
               <div key={index} className="relative text-center">
                 {/* Ligne de connexion */}
                 {index < steps.length - 1 && (
-                  <div className="hidden md:block absolute top-12 left-full w-full h-0.5 bg-basil-300 transform translate-x-6"></div>
+                  <div className="hidden md:block absolute top-12 left-full w-full h-0.5 bg-tomato-300 transform translate-x-6"></div>
                 )}
 
                 <div className="glass-card p-8 rounded-3xl hover:scale-105 transition-all duration-300 hover:shadow-2xl relative z-10">
-                  <div className="inline-flex items-center justify-center w-24 h-24 bg-basil-500 rounded-full text-white text-2xl font-bold mb-6 shadow-xl glow-basil">
+                  <div className="inline-flex items-center justify-center w-24 h-24 bg-tomato-500 rounded-full text-white text-2xl font-bold mb-6 shadow-xl glow-tomato">
                     {step.number}
                   </div>
                   <h3 className="text-xl font-semibold text-gray-800 mb-4">
@@ -301,7 +301,7 @@ const Home: React.FC = () => {
           <div className="text-center mt-12">
             <Link
               to="/abonnements"
-              className="magic-button bg-basil-500 hover:bg-basil-600 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 inline-flex items-center space-x-2 glow-basil"
+              className="magic-button bg-tomato-500 hover:bg-tomato-600 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 inline-flex items-center space-x-2 glow-tomato"
             >
               <span>Commencer l'aventure</span>
               <Sparkles className="h-5 w-5" />
