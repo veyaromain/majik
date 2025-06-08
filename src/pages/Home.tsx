@@ -96,8 +96,11 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Séparateur montagne */}
-      <MountainSeparator color="white" />
+      {/* Séparateur montagne - transition crème vers blanc */}
+      <MountainSeparator 
+        fromColor="#EDE5CC" 
+        toColor="rgba(255, 255, 255, 0.5)" 
+      />
 
       {/* Section avec images percutantes */}
       <section className="py-20 bg-white/50">
@@ -201,8 +204,11 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Séparateur montagne */}
-      <MountainSeparator color="basil" />
+      {/* Séparateur montagne - transition blanc vers basil */}
+      <MountainSeparator 
+        fromColor="rgba(255, 255, 255, 0.5)" 
+        toColor="#f0fdf4" 
+      />
 
       {/* Section Avantages */}
       <section className="py-20 bg-basil-50">
@@ -237,10 +243,12 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Séparateur montagne inversé */}
-      <div className="rotate-180">
-        <MountainSeparator color="white" />
-      </div>
+      {/* Séparateur montagne - transition basil vers blanc */}
+      <MountainSeparator 
+        fromColor="#f0fdf4" 
+        toColor="rgba(255, 255, 255, 0.5)" 
+        direction="reverse"
+      />
 
       {/* Section Fonctionnement */}
       <section className="py-20 bg-white/50">
@@ -289,8 +297,11 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Séparateur montagne */}
-      <MountainSeparator color="curry" />
+      {/* Séparateur montagne - transition blanc vers curry */}
+      <MountainSeparator 
+        fromColor="rgba(255, 255, 255, 0.5)" 
+        toColor="#fefce8" 
+      />
 
       {/* Section Restaurateurs */}
       <section className="py-20 bg-gradient-to-br from-curry-400 to-curry-500 text-white relative overflow-hidden">
