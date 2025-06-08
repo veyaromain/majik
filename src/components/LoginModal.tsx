@@ -10,6 +10,13 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
   const { signIn } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
 
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    // Fermer le modal seulement si on clique sur le backdrop (pas sur le contenu)
+    if (e.target === e.currentTarget) {
+      onClose()
+    }
+  }
+
   const handleLogin = async () => {
     setIsLoading(true)
     try {
@@ -23,8 +30,11 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fadeIn">
-      <div className="bg-white rounded-3xl max-w-md w-full relative shadow-2xl border border-gray-100 animate-slideUp">
+    <div 
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fadeIn cursor-pointer"
+      onClick={handleBackdropClick}
+    >
+      <div className="bg-white rounded-3xl max-w-md w-full relative shadow-2xl border border-gray-100 animate-slideUp cursor-default">
         {/* Header */}
         <div className="relative p-8 text-center border-b border-gray-100">
           <button
