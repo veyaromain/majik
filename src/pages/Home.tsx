@@ -47,7 +47,7 @@ const Home: React.FC = () => {
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center" style={{backgroundColor: '#EBD489'}}>
+      <section className="relative min-h-screen flex items-center justify-center" style={{backgroundColor: '#EDE5CC'}}>
         {/* Éléments décoratifs flottants */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="sparkle top-20 left-20"></div>
