@@ -1,12 +1,16 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { User, onAuthStateChanged, signInWithPopup, signOut, GoogleAuthProvider } from 'firebase/auth'
-import { auth, provider } from './firebase'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { auth, provider, db } from './firebase'
+import CompleteProfileModal from './components/CompleteProfileModal'
 
 interface AuthContextType {
   user: User | null
   loading: boolean
   signIn: () => Promise<void>
   signOutUser: () => Promise<void>
+  profileNeedsCompletion: boolean
+  saveProfile: (data: { firstName: string; lastName: string; age: number }) => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType)
@@ -14,6 +18,7 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType)
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
+  const [profileNeedsCompletion, setProfileNeedsCompletion] = useState(false)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (u) => {
@@ -23,6 +28,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     return unsubscribe
   }, [])
+
+  useEffect(() => {
+    if (user) {
+      const checkProfile = async () => {
+        const snap = await getDoc(doc(db, 'users', user.uid))
+        setProfileNeedsCompletion(!snap.exists())
+      }
+      checkProfile()
+    } else {
+      setProfileNeedsCompletion(false)
+    }
+  }, [user])
 
   const signIn = async () => {
     try {
@@ -51,10 +68,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     await signOut(auth)
   }
 
+  const saveProfile = async (data: { firstName: string; lastName: string; age: number }) => {
+    if (!user) return
+    await setDoc(doc(db, 'users', user.uid), data)
+    setProfileNeedsCompletion(false)
+  }
+
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signOutUser }}>
-      {children}
-    </AuthContext.Provider>
+    <>
+      <AuthContext.Provider value={{ user, loading, signIn, signOutUser, profileNeedsCompletion, saveProfile }}>
+        {children}
+      </AuthContext.Provider>
+      {profileNeedsCompletion && user && <CompleteProfileModal onSave={saveProfile} />}
+    </>
   )
 }
 
