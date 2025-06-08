@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <Sparkles className="h-8 w-8 text-tomato-500" />
-              <span className="text-2xl font-bold bg-gradient-to-r from-tomato-500 to-tomato-600 bg-clip-text text-transparent">
+              <span className="text-2xl font-bold text-tomato-500">
                 Majik
               </span>
             </div>

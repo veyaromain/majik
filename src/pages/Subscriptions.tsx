@@ -33,7 +33,7 @@ const Subscriptions: React.FC = () => {
       ],
       popular: false,
       icon: <Sparkles className="h-6 w-6" />,
-      color: 'from-curry-400 to-curry-600'
+      color: 'bg-curry-500'
     },
     {
       id: '6-months',
@@ -52,7 +52,7 @@ const Subscriptions: React.FC = () => {
       ],
       popular: true,
       icon: <Crown className="h-6 w-6" />,
-      color: 'from-tomato-400 to-tomato-600'
+      color: 'bg-tomato-500'
     },
     {
       id: '12-months',
@@ -72,7 +72,7 @@ const Subscriptions: React.FC = () => {
       ],
       popular: false,
       icon: <Zap className="h-6 w-6" />,
-      color: 'from-basil-400 to-basil-600'
+      color: 'bg-basil-500'
     }
   ]
 
@@ -99,7 +99,7 @@ const Subscriptions: React.FC = () => {
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
             Choisissez votre
-            <span className="block bg-gradient-to-r from-tomato-500 to-basil-500 bg-clip-text text-transparent">
+            <span className="block text-tomato-500">
               formule magique
             </span>
           </h1>
@@ -120,7 +120,7 @@ const Subscriptions: React.FC = () => {
               {/* Badge populaire */}
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-gradient-to-r from-tomato-500 to-tomato-600 text-white px-6 py-2 rounded-full text-sm font-semibold shadow-lg">
+                  <div className="bg-tomato-500 text-white px-6 py-2 rounded-full text-sm font-semibold shadow-lg">
                     ⭐ Plus populaire
                   </div>
                 </div>
@@ -128,7 +128,7 @@ const Subscriptions: React.FC = () => {
 
               {/* Icône et nom */}
               <div className="text-center mb-8">
-                <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br ${plan.color} rounded-2xl text-white mb-4 shadow-xl`}>
+                <div className={`inline-flex items-center justify-center w-16 h-16 ${plan.color} rounded-2xl text-white mb-4 shadow-xl`}>
                   {plan.icon}
                 </div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-2">{plan.name}</h3>
@@ -145,7 +145,7 @@ const Subscriptions: React.FC = () => {
                     CHF {plan.originalPrice}
                   </span>
                 </div>
-                <div className="bg-gradient-to-r from-basil-100 to-basil-200 text-basil-700 px-3 py-1 rounded-full text-sm font-semibold inline-block">
+                <div className="bg-basil-100 text-basil-700 px-3 py-1 rounded-full text-sm font-semibold inline-block">
                   {plan.discount}
                 </div>
               </div>
@@ -168,7 +168,7 @@ const Subscriptions: React.FC = () => {
                 onClick={() => handleSubscribe(plan.id)}
                 className={`w-full magic-button py-4 px-6 rounded-2xl font-semibold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl ${
                   plan.popular
-                    ? 'bg-gradient-to-r from-tomato-500 to-tomato-600 text-white glow-tomato'
+                    ? 'bg-tomato-500 hover:bg-tomato-600 text-white glow-tomato'
                     : 'bg-white text-gray-800 border-2 border-gray-200 hover:border-tomato-300'
                 }`}
               >

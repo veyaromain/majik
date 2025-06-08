@@ -89,14 +89,14 @@ const ForRestaurants: React.FC = () => {
         {/* Hero Section */}
         <div className="text-center mb-16">
           <div className="floating-element mb-8">
-            <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-basil-400 to-basil-600 rounded-full shadow-2xl glow-basil">
+            <div className="inline-flex items-center justify-center w-24 h-24 bg-basil-500 rounded-full shadow-2xl glow-basil">
               <ChefHat className="h-12 w-12 text-white" />
             </div>
           </div>
 
           <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6 text-shadow">
             Attirez plus de clients,
-            <span className="block bg-gradient-to-r from-basil-500 to-tomato-500 bg-clip-text text-transparent">
+            <span className="block text-basil-500">
               sans effort
             </span>
           </h1>
@@ -124,7 +124,7 @@ const ForRestaurants: React.FC = () => {
                 key={index}
                 className="glass-card p-8 rounded-3xl text-center group hover:scale-105 transition-all duration-300 hover:shadow-2xl"
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-basil-100 to-basil-200 rounded-2xl mb-6 text-basil-600 group-hover:from-basil-200 group-hover:to-basil-300 transition-all duration-300">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-basil-100 group-hover:bg-basil-200 rounded-2xl mb-6 text-basil-600 transition-all duration-300">
                   {benefit.icon}
                 </div>
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">
@@ -154,11 +154,11 @@ const ForRestaurants: React.FC = () => {
               <div key={index} className="relative text-center">
                 {/* Ligne de connexion */}
                 {index < steps.length - 1 && (
-                  <div className="hidden md:block absolute top-12 left-full w-full h-0.5 bg-gradient-to-r from-basil-300 to-tomato-300 transform translate-x-6"></div>
+                  <div className="hidden md:block absolute top-12 left-full w-full h-0.5 bg-basil-300 transform translate-x-6"></div>
                 )}
 
                 <div className="glass-card p-8 rounded-3xl hover:scale-105 transition-all duration-300 hover:shadow-2xl relative z-10">
-                  <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-tomato-400 to-tomato-600 rounded-full text-white text-2xl font-bold mb-6 shadow-xl glow-tomato">
+                  <div className="inline-flex items-center justify-center w-24 h-24 bg-tomato-500 rounded-full text-white text-2xl font-bold mb-6 shadow-xl glow-tomato">
                     {step.number}
                   </div>
                   <h3 className="text-xl font-semibold text-gray-800 mb-4">
@@ -282,7 +282,7 @@ const ForRestaurants: React.FC = () => {
                 <button
                   id="submit-button"
                   type="submit"
-                  className="w-full magic-button bg-gradient-to-r from-basil-500 to-basil-600 text-white py-4 px-6 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center space-x-2 glow-basil"
+                  className="w-full magic-button bg-basil-500 hover:bg-basil-600 text-white py-4 px-6 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center space-x-2 glow-basil"
                 >
                   <Send className="h-5 w-5" />
                   <span>Envoyer ma demande</span>
@@ -290,7 +290,7 @@ const ForRestaurants: React.FC = () => {
               </form>
             ) : (
               <div className="text-center py-12">
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-basil-400 to-basil-600 rounded-full text-white mb-6 shadow-xl animate-bounce-gentle">
+                <div className="inline-flex items-center justify-center w-20 h-20 bg-basil-500 rounded-full text-white mb-6 shadow-xl animate-bounce-gentle">
                   <Send className="h-10 w-10" />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-4">

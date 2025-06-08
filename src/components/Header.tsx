@@ -26,7 +26,7 @@ const Header: React.FC = () => {
               <Sparkles className="h-8 w-8 text-tomato-500 group-hover:text-tomato-600 transition-colors duration-300" />
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-curry-400 rounded-full animate-pulse"></div>
             </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-tomato-500 to-tomato-600 bg-clip-text text-transparent">
+            <span className="text-2xl font-bold text-tomato-500">
               Majik
             </span>
           </Link>

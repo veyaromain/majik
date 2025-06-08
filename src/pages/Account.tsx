@@ -68,7 +68,7 @@ const Account: React.FC = () => {
             {/* Informations personnelles */}
             <div className="glass-card p-8 rounded-3xl">
               <div className="flex items-center space-x-4 mb-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-tomato-400 to-tomato-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                <div className="w-16 h-16 bg-tomato-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
                   {user.name.split(' ').map(n => n[0]).join('')}
                 </div>
                 <div>
@@ -79,7 +79,7 @@ const Account: React.FC = () => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-gradient-to-br from-basil-50 to-basil-100 p-6 rounded-2xl">
+                <div className="bg-basil-50 p-6 rounded-2xl">
                   <div className="flex items-center space-x-3 mb-2">
                     <Sparkles className="h-6 w-6 text-basil-600" />
                     <span className="font-semibold text-basil-800">Économies totales</span>
@@ -87,7 +87,7 @@ const Account: React.FC = () => {
                   <p className="text-3xl font-bold text-basil-700">CHF {user.totalSavings}</p>
                 </div>
 
-                <div className="bg-gradient-to-br from-curry-50 to-curry-100 p-6 rounded-2xl">
+                <div className="bg-curry-50 p-6 rounded-2xl">
                   <div className="flex items-center space-x-3 mb-2">
                     <Calendar className="h-6 w-6 text-curry-600" />
                     <span className="font-semibold text-curry-800">Visites</span>
@@ -128,7 +128,7 @@ const Account: React.FC = () => {
             {/* Statut abonnement */}
             <div className="glass-card p-6 rounded-3xl">
               <div className="text-center mb-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-tomato-400 to-tomato-600 rounded-full text-white mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-tomato-500 rounded-full text-white mb-4">
                   <Crown className="h-8 w-8" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-800 mb-2">Plan {user.subscription}</h3>
@@ -136,7 +136,7 @@ const Account: React.FC = () => {
               </div>
 
               <div className="space-y-3">
-                <button className="w-full magic-button bg-gradient-to-r from-tomato-500 to-tomato-600 text-white py-3 px-4 rounded-xl font-medium hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2">
+                <button className="w-full magic-button bg-tomato-500 hover:bg-tomato-600 text-white py-3 px-4 rounded-xl font-medium hover:shadow-lg transition-all duration-300 flex items-center justify-center space-x-2">
                   <CreditCard className="h-4 w-4" />
                   <span>Gérer mon abonnement</span>
                 </button>
@@ -188,14 +188,14 @@ const Account: React.FC = () => {
               <div className="flex space-x-4">
                 <button
                   onClick={() => setShowCancelModal(false)}
-                  className="flex-1 magic-button bg-gray-100 text-gray-700 py-3 px-4 rounded-xl font-medium hover:bg-gray-200 transition-colors duration-300"
+                  className="flex-1 magic-button bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 px-4 rounded-xl font-medium transition-colors duration-300"
                 >
                   Annuler
                 </button>
                 <button
                   id="cancel-button"
                   onClick={handleCancelSubscription}
-                  className="flex-1 magic-button bg-red-500 text-white py-3 px-4 rounded-xl font-medium hover:bg-red-600 transition-colors duration-300"
+                  className="flex-1 magic-button bg-red-500 hover:bg-red-600 text-white py-3 px-4 rounded-xl font-medium transition-colors duration-300"
                 >
                   Confirmer
                 </button>
