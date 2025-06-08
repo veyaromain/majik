@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { User, onAuthStateChanged, signInWithRedirect, signOut, GoogleAuthProvider, getRedirectResult } from 'firebase/auth'
+import { User, onAuthStateChanged, signInWithPopup, signOut, GoogleAuthProvider } from 'firebase/auth'
 import { auth, provider } from './firebase'
 
 interface AuthContextType {
@@ -21,17 +21,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setLoading(false)
     })
 
-    // Handle redirect result when user returns from Google sign-in
-    getRedirectResult(auth).catch((error) => {
-      console.error('Redirect sign-in error:', error)
-      setLoading(false)
-    })
-
     return unsubscribe
   }, [])
 
   const signIn = async () => {
-    await signInWithRedirect(auth, provider)
+    try {
+      await signInWithPopup(auth, provider)
+    } catch (error: any) {
+      if (error.code === 'auth/popup-blocked') {
+        // Fallback: show instructions to user
+        alert('Les popups sont bloquées. Veuillez autoriser les popups pour ce site et réessayer.')
+      } else if (error.code === 'auth/unauthorized-domain') {
+        // Show helpful message for domain issues
+        alert('Erreur de domaine. Veuillez contacter le support.')
+      } else {
+        console.error('Erreur de connexion:', error)
+      }
+    }
   }
 
   const signOutUser = async () => {
