@@ -66,6 +66,22 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .drop-shadow-lg {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  }
+  
+  .drop-shadow-md {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  }
+  
+  .shadow-3xl {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 10px 20px -8px rgba(0, 0, 0, 0.1);
+  }
+  
   .glow-tomato {
     box-shadow: 0 0 20px rgba(241, 101, 72, 0.3);
   }

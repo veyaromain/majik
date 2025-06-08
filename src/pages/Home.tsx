@@ -48,30 +48,43 @@ const Home: React.FC = () => {
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center" style={{backgroundColor: '#EDE5CC'}}>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Image de fond avec overlay sombre */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg"
+            alt="Restaurant gastronomique"
+            className="w-full h-full object-cover"
+          />
+          {/* Overlay sombre pour assombrir l'image */}
+          <div className="absolute inset-0 bg-black/50"></div>
+          {/* Overlay couleur crème pour maintenir l'harmonie */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40" style={{backgroundColor: 'rgba(237, 229, 204, 0.3)'}}></div>
+        </div>
+
         {/* Éléments décoratifs flottants */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
           <div className="sparkle top-20 left-20"></div>
           <div className="sparkle top-40 right-32"></div>
           <div className="sparkle bottom-32 left-16"></div>
           <div className="sparkle bottom-20 right-20"></div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-20">
           <div className="floating-element mb-8">
             <div className="inline-flex items-center justify-center w-24 h-24 bg-tomato-500 rounded-full shadow-2xl glow-tomato">
               <Sparkles className="h-12 w-12 text-white" />
             </div>
           </div>
 
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-800 mb-6 text-shadow">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 text-shadow-lg">
             Et si aller au resto
-            <span className="block text-tomato-500">
+            <span className="block text-tomato-400 drop-shadow-lg">
               devenait magique ?
             </span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed drop-shadow-md">
             Découvrez des réductions exclusives dans les meilleurs restaurants de Suisse romande. 
             Une expérience culinaire unique vous attend.
           </p>
@@ -79,7 +92,7 @@ const Home: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <Link
               to="/restaurants"
-              className="magic-button bg-tomato-500 hover:bg-tomato-600 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-2 glow-tomato"
+              className="magic-button bg-tomato-500 hover:bg-tomato-600 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center space-x-2 glow-tomato backdrop-blur-sm"
             >
               <span>Parcourir les restaurants</span>
               <ArrowRight className="h-5 w-5" />
@@ -87,7 +100,7 @@ const Home: React.FC = () => {
 
             <Link
               to="/abonnements"
-              className="magic-button glass-card px-8 py-4 rounded-2xl font-semibold text-lg text-tomato-600 hover:text-tomato-700 transition-all duration-300 flex items-center space-x-2"
+              className="magic-button bg-white/20 backdrop-blur-md border border-white/30 px-8 py-4 rounded-2xl font-semibold text-lg text-white hover:text-tomato-200 hover:bg-white/30 transition-all duration-300 flex items-center space-x-2 shadow-xl"
             >
               <span>Découvrir les abonnements</span>
               <Sparkles className="h-5 w-5" />
