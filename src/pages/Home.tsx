@@ -278,7 +278,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Section Restaurateurs */}
-      <section className="py-20 bg-gradient-to-br from-basil-500 to-basil-600 text-white relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-br from-curry-400 to-curry-500 text-white relative overflow-hidden">
         {/* Éléments décoratifs */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 w-32 h-32 bg-white rounded-full"></div>
@@ -335,7 +335,7 @@ const Home: React.FC = () => {
 
               <Link
                 to="/restaurateurs"
-                className="magic-button bg-white text-basil-600 hover:bg-white/90 px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 inline-flex items-center space-x-2"
+                className="magic-button bg-white text-curry-600 hover:bg-white/90 px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 inline-flex items-center space-x-2"
               >
                 <span>Rejoindre Majik</span>
                 <ArrowRight className="h-5 w-5" />
@@ -356,7 +356,7 @@ const Home: React.FC = () => {
               {/* Badge flottant */}
               <div className="absolute -bottom-6 -right-6 bg-white rounded-2xl p-6 shadow-2xl">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-basil-600 mb-1">100+</div>
+                  <div className="text-2xl font-bold text-curry-600 mb-1">100+</div>
                   <div className="text-sm text-gray-600">Restaurants partenaires</div>
                 </div>
               </div>
