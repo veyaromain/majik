@@ -1,9 +1,18 @@
 import React from 'react'
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Sparkles, Clock, MapPin, Percent, Zap, ChefHat, Users, TrendingUp } from 'lucide-react'
 import MountainSeparator from '../components/MountainSeparator'
+import { useParallax } from '../hooks/useParallax'
 
 const Home: React.FC = () => {
+  const scrollY = useParallax()
+  const heroRef = useRef<HTMLElement>(null)
+  const section1Ref = useRef<HTMLElement>(null)
+  const section2Ref = useRef<HTMLElement>(null)
+  const section3Ref = useRef<HTMLElement>(null)
+  const section4Ref = useRef<HTMLElement>(null)
+
   const benefits = [
     {
       icon: <Percent className="h-8 w-8" />,
@@ -45,17 +54,39 @@ const Home: React.FC = () => {
     }
   ]
 
+  // Calcul des transformations parallax pour chaque section
+  const heroParallax = `translateY(${scrollY * 0.5}px)`
+  const heroOverlayParallax = `translateY(${scrollY * 0.3}px)`
+  const sparklesParallax = `translateY(${scrollY * 0.7}px)`
+  const section1Parallax = `translateY(${scrollY * 0.2}px)`
+  const section2Parallax = `translateY(${scrollY * 0.15}px)`
+  const section3Parallax = `translateY(${scrollY * 0.1}px)`
+  const section4Parallax = `translateY(${scrollY * 0.25}px)`
+
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section 
+        ref={heroRef}
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      >
         {/* Image de fond avec overlay sombre */}
-        <div className="absolute inset-0 z-0">
+        <div 
+          className="absolute inset-0 z-0 will-change-transform"
+          style={{ transform: heroParallax }}
+        >
           <img
             src="https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg"
             alt="Restaurant gastronomique"
-            className="w-full h-full object-cover"
+            className="w-full h-[120%] object-cover"
           />
+        </div>
+        
+        {/* Overlays avec parallax différentiel */}
+        <div 
+          className="absolute inset-0 z-10 will-change-transform"
+          style={{ transform: heroOverlayParallax }}
+        >
           {/* Overlay sombre pour assombrir l'image */}
           <div className="absolute inset-0 bg-black/50"></div>
           {/* Overlay couleur crème pour maintenir l'harmonie */}
@@ -63,14 +94,17 @@ const Home: React.FC = () => {
         </div>
 
         {/* Éléments décoratifs flottants */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
+        <div 
+          className="absolute inset-0 overflow-hidden pointer-events-none z-20 will-change-transform"
+          style={{ transform: sparklesParallax }}
+        >
           <div className="sparkle top-20 left-20"></div>
           <div className="sparkle top-40 right-32"></div>
           <div className="sparkle bottom-32 left-16"></div>
           <div className="sparkle bottom-20 right-20"></div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-30">
           <div className="floating-element mb-8">
             <div className="inline-flex items-center justify-center w-24 h-24 bg-tomato-500 rounded-full shadow-2xl glow-tomato">
               <Sparkles className="h-12 w-12 text-white" />
@@ -116,7 +150,11 @@ const Home: React.FC = () => {
       />
 
       {/* Section avec images percutantes */}
-      <section className="py-20 bg-white/50">
+      <section 
+        ref={section1Ref}
+        className="py-20 bg-white/50 will-change-transform"
+        style={{ transform: section1Parallax }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
@@ -129,12 +167,12 @@ const Home: React.FC = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
             {/* Image restaurant élégant */}
-            <div className="relative group">
+            <div className="relative group parallax-element">
               <div className="overflow-hidden rounded-3xl shadow-2xl">
                 <img
                   src="https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg"
                   alt="Restaurant élégant"
-                  className="w-full h-96 object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="w-full h-96 object-cover group-hover:scale-110 transition-transform duration-700 will-change-transform"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                 <div className="absolute bottom-6 left-6 text-white">
@@ -145,7 +183,7 @@ const Home: React.FC = () => {
             </div>
 
             <div className="space-y-8">
-              <div className="glass-card p-8 rounded-3xl">
+              <div className="glass-card p-8 rounded-3xl parallax-card">
                 <div className="flex items-center space-x-4 mb-4">
                   <div className="w-12 h-12 bg-tomato-100 rounded-xl flex items-center justify-center">
                     <Sparkles className="h-6 w-6 text-tomato-600" />
@@ -157,7 +195,7 @@ const Home: React.FC = () => {
                 </p>
               </div>
 
-              <div className="glass-card p-8 rounded-3xl">
+              <div className="glass-card p-8 rounded-3xl parallax-card">
                 <div className="flex items-center space-x-4 mb-4">
                   <div className="w-12 h-12 bg-basil-100 rounded-xl flex items-center justify-center">
                     <Clock className="h-6 w-6 text-basil-600" />
@@ -173,7 +211,7 @@ const Home: React.FC = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8 lg:order-2">
-              <div className="glass-card p-8 rounded-3xl">
+              <div className="glass-card p-8 rounded-3xl parallax-card">
                 <div className="flex items-center space-x-4 mb-4">
                   <div className="w-12 h-12 bg-curry-100 rounded-xl flex items-center justify-center">
                     <MapPin className="h-6 w-6 text-curry-600" />
@@ -185,7 +223,7 @@ const Home: React.FC = () => {
                 </p>
               </div>
 
-              <div className="glass-card p-8 rounded-3xl">
+              <div className="glass-card p-8 rounded-3xl parallax-card">
                 <div className="flex items-center space-x-4 mb-4">
                   <div className="w-12 h-12 bg-tomato-100 rounded-xl flex items-center justify-center">
                     <Zap className="h-6 w-6 text-tomato-600" />
@@ -199,12 +237,12 @@ const Home: React.FC = () => {
             </div>
 
             {/* Image plats gastronomiques */}
-            <div className="relative group lg:order-1">
+            <div className="relative group lg:order-1 parallax-element">
               <div className="overflow-hidden rounded-3xl shadow-2xl">
                 <img
                   src="https://images.pexels.com/photos/1581384/pexels-photo-1581384.jpeg"
                   alt="Plats gastronomiques"
-                  className="w-full h-96 object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="w-full h-96 object-cover group-hover:scale-110 transition-transform duration-700 will-change-transform"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                 <div className="absolute bottom-6 left-6 text-white">
@@ -224,7 +262,11 @@ const Home: React.FC = () => {
       />
 
       {/* Section Avantages */}
-      <section className="py-20 bg-basil-50">
+      <section 
+        ref={section2Ref}
+        className="py-20 bg-basil-50 will-change-transform"
+        style={{ transform: section2Parallax }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
@@ -239,7 +281,11 @@ const Home: React.FC = () => {
             {benefits.map((benefit, index) => (
               <div
                 key={index}
-                className="glass-card p-8 rounded-3xl text-center group hover:scale-105 transition-all duration-300 hover:shadow-2xl"
+                className="glass-card p-8 rounded-3xl text-center group hover:scale-105 transition-all duration-300 hover:shadow-2xl parallax-card"
+                style={{ 
+                  transform: `translateY(${scrollY * (0.05 + index * 0.02)}px)`,
+                  transitionDelay: `${index * 100}ms`
+                }}
               >
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-tomato-100 group-hover:bg-tomato-200 rounded-2xl mb-6 text-tomato-600 transition-all duration-300">
                   {benefit.icon}
@@ -264,7 +310,11 @@ const Home: React.FC = () => {
       />
 
       {/* Section Fonctionnement */}
-      <section className="py-20 bg-white/50">
+      <section 
+        ref={section3Ref}
+        className="py-20 bg-white/50 will-change-transform"
+        style={{ transform: section3Parallax }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
@@ -283,7 +333,13 @@ const Home: React.FC = () => {
                   <div className="hidden md:block absolute top-12 left-full w-full h-0.5 bg-tomato-300 transform translate-x-6"></div>
                 )}
 
-                <div className="glass-card p-8 rounded-3xl hover:scale-105 transition-all duration-300 hover:shadow-2xl relative z-10">
+                <div 
+                  className="glass-card p-8 rounded-3xl hover:scale-105 transition-all duration-300 hover:shadow-2xl relative z-10 parallax-card"
+                  style={{ 
+                    transform: `translateY(${scrollY * (0.08 + index * 0.03)}px)`,
+                    transitionDelay: `${index * 150}ms`
+                  }}
+                >
                   <div className="inline-flex items-center justify-center w-24 h-24 bg-tomato-500 rounded-full text-white text-2xl font-bold mb-6 shadow-xl glow-tomato">
                     {step.number}
                   </div>
@@ -317,9 +373,16 @@ const Home: React.FC = () => {
       />
 
       {/* Section Restaurateurs */}
-      <section className="py-20 bg-gradient-to-br from-curry-400 to-curry-500 text-white relative overflow-hidden">
+      <section 
+        ref={section4Ref}
+        className="py-20 bg-gradient-to-br from-curry-400 to-curry-500 text-white relative overflow-hidden will-change-transform"
+        style={{ transform: section4Parallax }}
+      >
         {/* Éléments décoratifs */}
-        <div className="absolute inset-0 opacity-10">
+        <div 
+          className="absolute inset-0 opacity-10 will-change-transform"
+          style={{ transform: `translateY(${scrollY * 0.1}px) rotate(${scrollY * 0.02}deg)` }}
+        >
           <div className="absolute top-10 left-10 w-32 h-32 bg-white rounded-full"></div>
           <div className="absolute bottom-20 right-20 w-24 h-24 bg-white rounded-full"></div>
           <div className="absolute top-1/2 right-10 w-16 h-16 bg-white rounded-full"></div>
@@ -382,18 +445,22 @@ const Home: React.FC = () => {
             </div>
 
             {/* Image chef */}
-            <div className="relative">
+            <div className="relative parallax-element">
               <div className="overflow-hidden rounded-3xl shadow-2xl">
                 <img
                   src="https://images.pexels.com/photos/887827/pexels-photo-887827.jpeg"
                   alt="Chef professionnel"
-                  className="w-full h-96 object-cover"
+                  className="w-full h-96 object-cover will-change-transform"
+                  style={{ transform: `scale(${1 + scrollY * 0.0001})` }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-basil-900/40 to-transparent"></div>
               </div>
               
               {/* Badge flottant */}
-              <div className="absolute -bottom-6 -right-6 bg-white rounded-2xl p-6 shadow-2xl">
+              <div 
+                className="absolute -bottom-6 -right-6 bg-white rounded-2xl p-6 shadow-2xl will-change-transform"
+                style={{ transform: `translateY(${scrollY * 0.05}px) rotate(${scrollY * 0.01}deg)` }}
+              >
                 <div className="text-center">
                   <div className="text-2xl font-bold text-curry-600 mb-1">100+</div>
                   <div className="text-sm text-gray-600">Restaurants partenaires</div>
