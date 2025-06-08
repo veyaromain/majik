@@ -6,6 +6,7 @@ import Restaurants from './pages/Restaurants'
 import Subscriptions from './pages/Subscriptions'
 import Account from './pages/Account'
 import ForRestaurants from './pages/ForRestaurants'
+import RequireAuth from './RequireAuth'
 
 function App() {
   return (
@@ -14,7 +15,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/restaurants" element={<Restaurants />} />
         <Route path="/abonnements" element={<Subscriptions />} />
-        <Route path="/compte" element={<Account />} />
+        <Route path="/compte" element={
+          <RequireAuth>
+            <Account />
+          </RequireAuth>
+        } />
         <Route path="/restaurateurs" element={<ForRestaurants />} />
       </Routes>
     </Layout>
