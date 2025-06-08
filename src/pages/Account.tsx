@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { User, Calendar, CreditCard, Settings, LogOut, Crown, Sparkles } from 'lucide-react'
+import { Calendar, CreditCard, Settings, LogOut, Crown, Sparkles } from 'lucide-react'
+import { useAuth } from '../AuthContext'
 
 const Account: React.FC = () => {
-  const [user] = useState({
-    name: 'Marie Dubois',
-    email: 'marie.dubois@email.com',
+  const { user, signOutUser } = useAuth()
+  const [userInfo] = useState({
     subscription: 'Gourmand',
     subscriptionEnd: '15 juin 2024',
     memberSince: 'Janvier 2024',
@@ -69,12 +69,12 @@ const Account: React.FC = () => {
             <div className="glass-card p-8 rounded-3xl">
               <div className="flex items-center space-x-4 mb-6">
                 <div className="w-16 h-16 bg-tomato-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
-                  {user.name.split(' ').map(n => n[0]).join('')}
+                  {(user?.displayName || '').split(' ').map(n => n[0]).join('')}
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-800">{user.name}</h2>
-                  <p className="text-gray-600">{user.email}</p>
-                  <p className="text-sm text-gray-500">Membre depuis {user.memberSince}</p>
+                  <h2 className="text-2xl font-bold text-gray-800">{user?.displayName}</h2>
+                  <p className="text-gray-600">{user?.email}</p>
+                  <p className="text-sm text-gray-500">Membre depuis {userInfo.memberSince}</p>
                 </div>
               </div>
 
@@ -84,7 +84,7 @@ const Account: React.FC = () => {
                     <Sparkles className="h-6 w-6 text-basil-600" />
                     <span className="font-semibold text-basil-800">Économies totales</span>
                   </div>
-                  <p className="text-3xl font-bold text-basil-700">CHF {user.totalSavings}</p>
+                  <p className="text-3xl font-bold text-basil-700">CHF {userInfo.totalSavings}</p>
                 </div>
 
                 <div className="bg-curry-50 p-6 rounded-2xl">
@@ -92,7 +92,7 @@ const Account: React.FC = () => {
                     <Calendar className="h-6 w-6 text-curry-600" />
                     <span className="font-semibold text-curry-800">Visites</span>
                   </div>
-                  <p className="text-3xl font-bold text-curry-700">{user.visitsCount}</p>
+                  <p className="text-3xl font-bold text-curry-700">{userInfo.visitsCount}</p>
                 </div>
               </div>
             </div>
@@ -131,8 +131,8 @@ const Account: React.FC = () => {
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-tomato-500 rounded-full text-white mb-4">
                   <Crown className="h-8 w-8" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-800 mb-2">Plan {user.subscription}</h3>
-                <p className="text-gray-600">Actif jusqu'au {user.subscriptionEnd}</p>
+                <h3 className="text-xl font-bold text-gray-800 mb-2">Plan {userInfo.subscription}</h3>
+                <p className="text-gray-600">Actif jusqu'au {userInfo.subscriptionEnd}</p>
               </div>
 
               <div className="space-y-3">
@@ -165,7 +165,7 @@ const Account: React.FC = () => {
                   <span className="text-gray-700">Paramètres</span>
                 </button>
 
-                <button className="w-full flex items-center space-x-3 p-3 rounded-xl hover:bg-white/50 transition-colors duration-300 text-left">
+                <button onClick={signOutUser} className="w-full flex items-center space-x-3 p-3 rounded-xl hover:bg-white/50 transition-colors duration-300 text-left">
                   <LogOut className="h-5 w-5 text-gray-600" />
                   <span className="text-gray-700">Se déconnecter</span>
                 </button>
