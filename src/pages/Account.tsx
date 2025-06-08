@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Calendar, CreditCard, Settings, LogOut, Crown, Sparkles, User, Lock } from 'lucide-react'
+import { Calendar, CreditCard, Settings, LogOut, Crown, Sparkles, Lock, User } from 'lucide-react'
 import { useAuth } from '../AuthContext'
 import LoginModal from '../components/LoginModal'
 
