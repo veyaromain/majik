@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { X, Sparkles } from 'lucide-react'
+import { X, Sparkles, Heart, Star } from 'lucide-react'
 import { useAuth } from '../AuthContext'
 
 interface LoginModalProps {
@@ -23,58 +23,75 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 p-4 animate-fadeIn">
+    <div className="fixed inset-0 bg-gradient-to-br from-tomato-500/20 via-curry-400/20 to-basil-500/20 backdrop-blur-md flex items-center justify-center z-50 p-4 animate-fadeIn">
       <div className="relative">
-        {/* Éléments décoratifs flottants */}
-        <div className="absolute -top-10 -left-10 w-20 h-20 bg-tomato-400/20 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute -bottom-10 -right-10 w-16 h-16 bg-basil-400/20 rounded-full blur-xl animate-pulse delay-1000"></div>
+        {/* Éléments décoratifs festifs */}
+        <div className="absolute -top-8 -left-8 w-16 h-16 bg-gradient-to-br from-tomato-400 to-curry-400 rounded-full blur-lg animate-pulse opacity-60"></div>
+        <div className="absolute -bottom-6 -right-8 w-12 h-12 bg-gradient-to-br from-basil-400 to-curry-400 rounded-full blur-lg animate-pulse delay-700 opacity-60"></div>
+        <div className="absolute top-4 -right-4 w-8 h-8 bg-gradient-to-br from-curry-400 to-tomato-400 rounded-full blur-md animate-pulse delay-1000 opacity-50"></div>
         
-        <div className="glass-card p-0 rounded-3xl max-w-sm w-full relative overflow-hidden animate-slideUp shadow-2xl">
-          {/* Header minimaliste */}
-          <div className="relative p-8 text-center">
+        {/* Étoiles scintillantes */}
+        <div className="absolute -top-4 left-8">
+          <Star className="h-4 w-4 text-curry-400 animate-pulse" fill="currentColor" />
+        </div>
+        <div className="absolute -bottom-2 left-4">
+          <Heart className="h-3 w-3 text-tomato-400 animate-pulse delay-500" fill="currentColor" />
+        </div>
+        <div className="absolute top-8 -left-2">
+          <Sparkles className="h-3 w-3 text-basil-400 animate-pulse delay-300" />
+        </div>
+        
+        <div className="bg-white/90 backdrop-blur-xl rounded-3xl max-w-sm w-full relative overflow-hidden animate-slideUp shadow-2xl border border-white/30">
+          {/* Header festif */}
+          <div className="relative p-8 text-center bg-gradient-to-br from-white/50 to-white/30">
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-all duration-300 p-2 rounded-full hover:bg-gray-100/50 group"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-all duration-300 p-2 rounded-full hover:bg-white/50 group"
             >
               <X className="h-5 w-5 group-hover:rotate-90 transition-transform duration-300" />
             </button>
             
-            {/* Logo animé */}
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-tomato-500 to-tomato-600 rounded-2xl mb-6 shadow-xl relative overflow-hidden group">
-              <Sparkles className="h-10 w-10 text-white relative z-10" />
-              <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            {/* Logo festif avec confettis */}
+            <div className="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-tomato-500 via-curry-400 to-basil-500 rounded-2xl mb-6 shadow-xl overflow-hidden group">
+              <Sparkles className="h-10 w-10 text-white relative z-10 group-hover:rotate-12 transition-transform duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-br from-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              
+              {/* Confettis animés */}
+              <div className="absolute top-1 left-2 w-1 h-1 bg-white rounded-full animate-bounce delay-100"></div>
+              <div className="absolute top-3 right-3 w-1 h-1 bg-white rounded-full animate-bounce delay-300"></div>
+              <div className="absolute bottom-2 left-4 w-1 h-1 bg-white rounded-full animate-bounce delay-500"></div>
             </div>
             
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">
-              Bienvenue
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-tomato-600 via-curry-600 to-basil-600 bg-clip-text text-transparent mb-2">
+              Bienvenue ! 🎉
             </h2>
-            <p className="text-gray-500 text-lg">
-              Connectez-vous pour découvrir la magie
+            <p className="text-gray-600 text-lg">
+              Prêt pour une expérience <span className="font-semibold text-tomato-500">magique</span> ?
             </p>
           </div>
 
           {/* Contenu principal */}
           <div className="px-8 pb-8">
-            {/* Bouton Google ultra-moderne */}
+            {/* Bouton Google compact et festif */}
             <button
               onClick={handleLogin}
               disabled={isLoading}
-              className="w-full relative group overflow-hidden bg-white border-2 border-gray-100 hover:border-gray-200 rounded-2xl p-6 transition-all duration-500 hover:shadow-2xl hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              className="w-full relative group overflow-hidden bg-white border-2 border-gray-100 hover:border-tomato-200 rounded-xl py-4 px-6 transition-all duration-500 hover:shadow-xl hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 hover:bg-gradient-to-r hover:from-white hover:to-tomato-50"
             >
-              {/* Effet de brillance au survol */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              {/* Effet de brillance festif */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-curry-200/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
               
-              <div className="relative flex items-center justify-center space-x-4">
+              <div className="relative flex items-center justify-center space-x-3">
                 {isLoading ? (
                   <div className="flex items-center space-x-3">
-                    <div className="w-6 h-6 border-3 border-gray-200 border-t-tomato-500 rounded-full animate-spin"></div>
+                    <div className="w-5 h-5 border-2 border-gray-200 border-t-tomato-500 rounded-full animate-spin"></div>
                     <span className="text-gray-600 font-medium">Connexion...</span>
                   </div>
                 ) : (
                   <>
                     {/* Logo Google */}
                     <div className="flex-shrink-0">
-                      <svg className="w-6 h-6" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5" viewBox="0 0 24 24">
                         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                         <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                         <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
@@ -82,7 +99,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
                       </svg>
                     </div>
                     
-                    <span className="text-gray-700 font-semibold text-lg group-hover:text-gray-800 transition-colors duration-300">
+                    <span className="text-gray-700 font-semibold group-hover:text-tomato-600 transition-colors duration-300">
                       Continuer avec Google
                     </span>
                   </>
@@ -90,9 +107,17 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
               </div>
             </button>
 
-            {/* Texte légal minimaliste */}
-            <p className="text-xs text-gray-400 text-center mt-6 leading-relaxed">
-              En continuant, vous acceptez nos conditions d'utilisation et notre politique de confidentialité
+            {/* Message encourageant */}
+            <div className="mt-6 p-4 bg-gradient-to-r from-basil-50 to-curry-50 rounded-xl border border-basil-100">
+              <p className="text-sm text-center text-gray-600">
+                <span className="font-semibold text-basil-600">✨ Rejoignez des milliers de gourmets</span><br/>
+                qui économisent déjà avec Majik !
+              </p>
+            </div>
+
+            {/* Texte légal festif */}
+            <p className="text-xs text-gray-400 text-center mt-4 leading-relaxed">
+              En continuant, vous acceptez de vivre des moments <span className="text-tomato-400">magiques</span> 🪄
             </p>
           </div>
         </div>
