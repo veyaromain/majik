@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Sparkles, Clock, MapPin, Percent, Zap, ChefHat, Users, TrendingUp } from 'lucide-react'
+import MountainSeparator from '../components/MountainSeparator'
 
 const Home: React.FC = () => {
   const benefits = [
@@ -94,6 +95,9 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Séparateur montagne */}
+      <MountainSeparator color="white" />
 
       {/* Section avec images percutantes */}
       <section className="py-20 bg-white/50">
@@ -197,6 +201,9 @@ const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* Séparateur montagne */}
+      <MountainSeparator color="basil" />
+
       {/* Section Avantages */}
       <section className="py-20 bg-basil-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -229,6 +236,11 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Séparateur montagne inversé */}
+      <div className="rotate-180">
+        <MountainSeparator color="white" />
+      </div>
 
       {/* Section Fonctionnement */}
       <section className="py-20 bg-white/50">
@@ -276,6 +288,9 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Séparateur montagne */}
+      <MountainSeparator color="curry" />
 
       {/* Section Restaurateurs */}
       <section className="py-20 bg-gradient-to-br from-curry-400 to-curry-500 text-white relative overflow-hidden">
