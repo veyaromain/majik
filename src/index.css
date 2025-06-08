@@ -57,7 +57,7 @@
   }
   
   .animate-slideUp {
-    animation: slideUp 0.4s ease-out;
+    animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 }
 
@@ -91,7 +91,7 @@
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(20px) scale(0.95);
+    transform: translateY(30px) scale(0.9);
   }
   to {
     opacity: 1;
