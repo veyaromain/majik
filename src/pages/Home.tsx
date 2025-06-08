@@ -1,17 +1,54 @@
-import React from 'react'
-import { useEffect, useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Sparkles, Clock, MapPin, Percent, Zap, ChefHat, Users, TrendingUp } from 'lucide-react'
 import MountainSeparator from '../components/MountainSeparator'
-import { useParallax } from '../hooks/useParallax'
+import { useParallax, useIntersectionParallax } from '../hooks/useParallax'
 
 const Home: React.FC = () => {
   const scrollY = useParallax()
+  
+  // Refs pour les sections
   const heroRef = useRef<HTMLElement>(null)
-  const section1Ref = useRef<HTMLElement>(null)
-  const section2Ref = useRef<HTMLElement>(null)
-  const section3Ref = useRef<HTMLElement>(null)
-  const section4Ref = useRef<HTMLElement>(null)
+  const heroImageRef = useRef<HTMLDivElement>(null)
+  const heroOverlayRef = useRef<HTMLDivElement>(null)
+  const sparklesRef = useRef<HTMLDivElement>(null)
+  
+  // Parallax pour chaque section avec intersection observer
+  const { parallaxValue: section1Parallax, setRef: setSection1Ref } = useIntersectionParallax(0.3)
+  const { parallaxValue: section2Parallax, setRef: setSection2Ref } = useIntersectionParallax(0.2)
+  const { parallaxValue: section3Parallax, setRef: setSection3Ref } = useIntersectionParallax(0.25)
+  const { parallaxValue: section4Parallax, setRef: setSection4Ref } = useIntersectionParallax(0.15)
+
+  // Effet de parallax optimisé pour le hero
+  useEffect(() => {
+    const updateParallax = () => {
+      if (heroImageRef.current) {
+        const heroOffset = heroRef.current?.offsetTop || 0
+        const relativeScroll = Math.max(0, scrollY - heroOffset)
+        const parallaxOffset = relativeScroll * 0.5
+        
+        heroImageRef.current.style.transform = `translate3d(0, ${parallaxOffset}px, 0)`
+      }
+      
+      if (heroOverlayRef.current) {
+        const heroOffset = heroRef.current?.offsetTop || 0
+        const relativeScroll = Math.max(0, scrollY - heroOffset)
+        const parallaxOffset = relativeScroll * 0.3
+        
+        heroOverlayRef.current.style.transform = `translate3d(0, ${parallaxOffset}px, 0)`
+      }
+      
+      if (sparklesRef.current) {
+        const heroOffset = heroRef.current?.offsetTop || 0
+        const relativeScroll = Math.max(0, scrollY - heroOffset)
+        const parallaxOffset = relativeScroll * 0.7
+        
+        sparklesRef.current.style.transform = `translate3d(0, ${parallaxOffset}px, 0)`
+      }
+    }
+
+    updateParallax()
+  }, [scrollY])
 
   const benefits = [
     {
@@ -54,15 +91,6 @@ const Home: React.FC = () => {
     }
   ]
 
-  // Calcul des transformations parallax pour chaque section
-  const heroParallax = `translateY(${scrollY * 0.5}px)`
-  const heroOverlayParallax = `translateY(${scrollY * 0.3}px)`
-  const sparklesParallax = `translateY(${scrollY * 0.7}px)`
-  const section1Parallax = `translateY(${scrollY * 0.2}px)`
-  const section2Parallax = `translateY(${scrollY * 0.15}px)`
-  const section3Parallax = `translateY(${scrollY * 0.1}px)`
-  const section4Parallax = `translateY(${scrollY * 0.25}px)`
-
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
@@ -70,22 +98,35 @@ const Home: React.FC = () => {
         ref={heroRef}
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
       >
-        {/* Image de fond avec overlay sombre */}
+        {/* Image de fond avec parallax */}
         <div 
-          className="absolute inset-0 z-0 will-change-transform"
-          style={{ transform: heroParallax }}
+          ref={heroImageRef}
+          className="absolute inset-0 z-0"
+          style={{ 
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+            perspective: '1000px'
+          }}
         >
           <img
             src="https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg"
             alt="Restaurant gastronomique"
             className="w-full h-[120%] object-cover"
+            style={{ 
+              willChange: 'transform',
+              transform: 'translateZ(0)'
+            }}
           />
         </div>
         
         {/* Overlays avec parallax différentiel */}
         <div 
-          className="absolute inset-0 z-10 will-change-transform"
-          style={{ transform: heroOverlayParallax }}
+          ref={heroOverlayRef}
+          className="absolute inset-0 z-10"
+          style={{ 
+            willChange: 'transform',
+            backfaceVisibility: 'hidden'
+          }}
         >
           {/* Overlay sombre pour assombrir l'image */}
           <div className="absolute inset-0 bg-black/50"></div>
@@ -95,8 +136,12 @@ const Home: React.FC = () => {
 
         {/* Éléments décoratifs flottants */}
         <div 
-          className="absolute inset-0 overflow-hidden pointer-events-none z-20 will-change-transform"
-          style={{ transform: sparklesParallax }}
+          ref={sparklesRef}
+          className="absolute inset-0 overflow-hidden pointer-events-none z-20"
+          style={{ 
+            willChange: 'transform',
+            backfaceVisibility: 'hidden'
+          }}
         >
           <div className="sparkle top-20 left-20"></div>
           <div className="sparkle top-40 right-32"></div>
@@ -151,9 +196,12 @@ const Home: React.FC = () => {
 
       {/* Section avec images percutantes */}
       <section 
-        ref={section1Ref}
-        className="py-20 bg-white/50 will-change-transform"
-        style={{ transform: section1Parallax }}
+        ref={setSection1Ref}
+        className="py-20 bg-white/50"
+        style={{ 
+          transform: `translate3d(0, ${-section1Parallax}px, 0)`,
+          willChange: 'transform'
+        }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -167,12 +215,12 @@ const Home: React.FC = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
             {/* Image restaurant élégant */}
-            <div className="relative group parallax-element">
+            <div className="relative group">
               <div className="overflow-hidden rounded-3xl shadow-2xl">
                 <img
                   src="https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg"
                   alt="Restaurant élégant"
-                  className="w-full h-96 object-cover group-hover:scale-110 transition-transform duration-700 will-change-transform"
+                  className="w-full h-96 object-cover group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                 <div className="absolute bottom-6 left-6 text-white">
@@ -183,7 +231,7 @@ const Home: React.FC = () => {
             </div>
 
             <div className="space-y-8">
-              <div className="glass-card p-8 rounded-3xl parallax-card">
+              <div className="glass-card p-8 rounded-3xl transform hover:scale-105 transition-all duration-300">
                 <div className="flex items-center space-x-4 mb-4">
                   <div className="w-12 h-12 bg-tomato-100 rounded-xl flex items-center justify-center">
                     <Sparkles className="h-6 w-6 text-tomato-600" />
@@ -195,7 +243,7 @@ const Home: React.FC = () => {
                 </p>
               </div>
 
-              <div className="glass-card p-8 rounded-3xl parallax-card">
+              <div className="glass-card p-8 rounded-3xl transform hover:scale-105 transition-all duration-300">
                 <div className="flex items-center space-x-4 mb-4">
                   <div className="w-12 h-12 bg-basil-100 rounded-xl flex items-center justify-center">
                     <Clock className="h-6 w-6 text-basil-600" />
@@ -211,7 +259,7 @@ const Home: React.FC = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8 lg:order-2">
-              <div className="glass-card p-8 rounded-3xl parallax-card">
+              <div className="glass-card p-8 rounded-3xl transform hover:scale-105 transition-all duration-300">
                 <div className="flex items-center space-x-4 mb-4">
                   <div className="w-12 h-12 bg-curry-100 rounded-xl flex items-center justify-center">
                     <MapPin className="h-6 w-6 text-curry-600" />
@@ -223,7 +271,7 @@ const Home: React.FC = () => {
                 </p>
               </div>
 
-              <div className="glass-card p-8 rounded-3xl parallax-card">
+              <div className="glass-card p-8 rounded-3xl transform hover:scale-105 transition-all duration-300">
                 <div className="flex items-center space-x-4 mb-4">
                   <div className="w-12 h-12 bg-tomato-100 rounded-xl flex items-center justify-center">
                     <Zap className="h-6 w-6 text-tomato-600" />
@@ -237,12 +285,12 @@ const Home: React.FC = () => {
             </div>
 
             {/* Image plats gastronomiques */}
-            <div className="relative group lg:order-1 parallax-element">
+            <div className="relative group lg:order-1">
               <div className="overflow-hidden rounded-3xl shadow-2xl">
                 <img
                   src="https://images.pexels.com/photos/1581384/pexels-photo-1581384.jpeg"
                   alt="Plats gastronomiques"
-                  className="w-full h-96 object-cover group-hover:scale-110 transition-transform duration-700 will-change-transform"
+                  className="w-full h-96 object-cover group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                 <div className="absolute bottom-6 left-6 text-white">
@@ -263,9 +311,12 @@ const Home: React.FC = () => {
 
       {/* Section Avantages */}
       <section 
-        ref={section2Ref}
-        className="py-20 bg-basil-50 will-change-transform"
-        style={{ transform: section2Parallax }}
+        ref={setSection2Ref}
+        className="py-20 bg-basil-50"
+        style={{ 
+          transform: `translate3d(0, ${-section2Parallax}px, 0)`,
+          willChange: 'transform'
+        }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -281,10 +332,11 @@ const Home: React.FC = () => {
             {benefits.map((benefit, index) => (
               <div
                 key={index}
-                className="glass-card p-8 rounded-3xl text-center group hover:scale-105 transition-all duration-300 hover:shadow-2xl parallax-card"
+                className="glass-card p-8 rounded-3xl text-center group hover:scale-105 transition-all duration-300 hover:shadow-2xl"
                 style={{ 
-                  transform: `translateY(${scrollY * (0.05 + index * 0.02)}px)`,
-                  transitionDelay: `${index * 100}ms`
+                  transform: `translate3d(0, ${section2Parallax * (0.1 + index * 0.05)}px, 0)`,
+                  transitionDelay: `${index * 100}ms`,
+                  willChange: 'transform'
                 }}
               >
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-tomato-100 group-hover:bg-tomato-200 rounded-2xl mb-6 text-tomato-600 transition-all duration-300">
@@ -311,9 +363,12 @@ const Home: React.FC = () => {
 
       {/* Section Fonctionnement */}
       <section 
-        ref={section3Ref}
-        className="py-20 bg-white/50 will-change-transform"
-        style={{ transform: section3Parallax }}
+        ref={setSection3Ref}
+        className="py-20 bg-white/50"
+        style={{ 
+          transform: `translate3d(0, ${-section3Parallax}px, 0)`,
+          willChange: 'transform'
+        }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -334,10 +389,11 @@ const Home: React.FC = () => {
                 )}
 
                 <div 
-                  className="glass-card p-8 rounded-3xl hover:scale-105 transition-all duration-300 hover:shadow-2xl relative z-10 parallax-card"
+                  className="glass-card p-8 rounded-3xl hover:scale-105 transition-all duration-300 hover:shadow-2xl relative z-10"
                   style={{ 
-                    transform: `translateY(${scrollY * (0.08 + index * 0.03)}px)`,
-                    transitionDelay: `${index * 150}ms`
+                    transform: `translate3d(0, ${section3Parallax * (0.15 + index * 0.1)}px, 0)`,
+                    transitionDelay: `${index * 150}ms`,
+                    willChange: 'transform'
                   }}
                 >
                   <div className="inline-flex items-center justify-center w-24 h-24 bg-tomato-500 rounded-full text-white text-2xl font-bold mb-6 shadow-xl glow-tomato">
@@ -374,14 +430,20 @@ const Home: React.FC = () => {
 
       {/* Section Restaurateurs */}
       <section 
-        ref={section4Ref}
-        className="py-20 bg-gradient-to-br from-curry-400 to-curry-500 text-white relative overflow-hidden will-change-transform"
-        style={{ transform: section4Parallax }}
+        ref={setSection4Ref}
+        className="py-20 bg-gradient-to-br from-curry-400 to-curry-500 text-white relative overflow-hidden"
+        style={{ 
+          transform: `translate3d(0, ${-section4Parallax}px, 0)`,
+          willChange: 'transform'
+        }}
       >
         {/* Éléments décoratifs */}
         <div 
-          className="absolute inset-0 opacity-10 will-change-transform"
-          style={{ transform: `translateY(${scrollY * 0.1}px) rotate(${scrollY * 0.02}deg)` }}
+          className="absolute inset-0 opacity-10"
+          style={{ 
+            transform: `translate3d(0, ${section4Parallax * 0.2}px, 0) rotate(${section4Parallax * 0.01}deg)`,
+            willChange: 'transform'
+          }}
         >
           <div className="absolute top-10 left-10 w-32 h-32 bg-white rounded-full"></div>
           <div className="absolute bottom-20 right-20 w-24 h-24 bg-white rounded-full"></div>
@@ -445,21 +507,27 @@ const Home: React.FC = () => {
             </div>
 
             {/* Image chef */}
-            <div className="relative parallax-element">
+            <div className="relative">
               <div className="overflow-hidden rounded-3xl shadow-2xl">
                 <img
                   src="https://images.pexels.com/photos/887827/pexels-photo-887827.jpeg"
                   alt="Chef professionnel"
-                  className="w-full h-96 object-cover will-change-transform"
-                  style={{ transform: `scale(${1 + scrollY * 0.0001})` }}
+                  className="w-full h-96 object-cover transition-transform duration-700"
+                  style={{ 
+                    transform: `scale(${1 + section4Parallax * 0.0002})`,
+                    willChange: 'transform'
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-basil-900/40 to-transparent"></div>
               </div>
               
               {/* Badge flottant */}
               <div 
-                className="absolute -bottom-6 -right-6 bg-white rounded-2xl p-6 shadow-2xl will-change-transform"
-                style={{ transform: `translateY(${scrollY * 0.05}px) rotate(${scrollY * 0.01}deg)` }}
+                className="absolute -bottom-6 -right-6 bg-white rounded-2xl p-6 shadow-2xl"
+                style={{ 
+                  transform: `translate3d(0, ${section4Parallax * 0.1}px, 0) rotate(${section4Parallax * 0.02}deg)`,
+                  willChange: 'transform'
+                }}
               >
                 <div className="text-center">
                   <div className="text-2xl font-bold text-curry-600 mb-1">100+</div>
