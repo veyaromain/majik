@@ -1,10 +1,11 @@
 import React, { useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Sparkles, Clock, MapPin, Percent, Zap, ChefHat, Users, TrendingUp } from 'lucide-react'
-import MountainSeparator from '../components/MountainSeparator'
-import { useParallax, useIntersectionParallax } from '../hooks/useParallax'
+import MountainSeparator from '../../components/MountainSeparator'
+import { useParallax, useIntersectionParallax } from '../../hooks/useParallax'
+import styles from './styles.module.css'
 
-const Home: React.FC = () => {
+const HomeView: React.FC = () => {
   const scrollY = useParallax()
   
   // Refs pour les sections
@@ -92,7 +93,7 @@ const Home: React.FC = () => {
   ]
 
   return (
-    <div className="overflow-hidden">
+    <div className={`${styles.container} overflow-hidden`}>
       {/* Hero Section */}
       <section 
         ref={heroRef}
@@ -542,4 +543,4 @@ const Home: React.FC = () => {
   )
 }
 
-export default Home
+export default HomeView

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Check, Sparkles, Crown, Zap } from 'lucide-react'
+import styles from './styles.module.css'
 
 interface Plan {
   id: string
@@ -14,7 +15,7 @@ interface Plan {
   color: string
 }
 
-const Subscriptions: React.FC = () => {
+const SubscriptionsView: React.FC = () => {
   const [selectedPlan, setSelectedPlan] = useState<string>('6-months')
 
   const plans: Plan[] = [
@@ -93,7 +94,7 @@ const Subscriptions: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen py-12" style={{backgroundColor: '#EDE5CC'}}>
+    <div className={styles.container}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
@@ -223,4 +224,4 @@ const Subscriptions: React.FC = () => {
   )
 }
 
-export default Subscriptions
+export default SubscriptionsView
