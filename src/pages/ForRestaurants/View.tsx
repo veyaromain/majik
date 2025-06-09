@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { ChefHat, Users, TrendingUp, Clock, Mail, Phone, MessageSquare, Send } from 'lucide-react'
+import styles from './styles.module.css'
 
-const ForRestaurants: React.FC = () => {
+const ForRestaurantsView: React.FC = () => {
   const [formData, setFormData] = useState({
     restaurantName: '',
     contactName: '',
@@ -84,7 +85,7 @@ const ForRestaurants: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen py-12" style={{backgroundColor: '#EDE5CC'}}>
+    <div className={styles.container}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="text-center mb-16">
@@ -308,4 +309,4 @@ const ForRestaurants: React.FC = () => {
   )
 }
 
-export default ForRestaurants
+export default ForRestaurantsView

@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Calendar, CreditCard, Settings, LogOut, Crown, Sparkles, Lock, User } from 'lucide-react'
-import { useAuth } from '../AuthContext'
-import LoginModal from '../components/LoginModal'
+import { useAuth } from '../../AuthContext'
+import LoginModal from '../../components/LoginModal'
+import styles from './styles.module.css'
 
-const Account: React.FC = () => {
+const AccountView: React.FC = () => {
   const { user, signOutUser } = useAuth()
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [userInfo] = useState({
@@ -56,7 +57,7 @@ const Account: React.FC = () => {
   // Si l'utilisateur n'est pas connecté, afficher le message de connexion requis
   if (!user) {
     return (
-      <div className="min-h-screen py-12" style={{backgroundColor: '#EDE5CC'}}>
+      <div className={styles.container}>
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="glass-card p-8 md:p-12 rounded-3xl text-center">
             {/* Icône de verrouillage */}
@@ -133,7 +134,7 @@ const Account: React.FC = () => {
 
   // Si l'utilisateur est connecté, afficher le contenu normal du compte
   return (
-    <div className="min-h-screen py-12" style={{backgroundColor: '#EDE5CC'}}>
+    <div className={styles.container}>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -289,4 +290,4 @@ const Account: React.FC = () => {
   )
 }
 
-export default Account
+export default AccountView
